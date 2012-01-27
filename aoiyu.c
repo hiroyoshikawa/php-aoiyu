@@ -10,8 +10,8 @@
 ZEND_GET_MODULE(aoiyu);
 
 zend_function_entry aoiyu_functions[] = {
-	PHP_FE(aoiyu_awesome, NULL)
-	{NULL, NULL, NULL}
+    PHP_FE(aoiyu_awesome, NULL)
+    {NULL, NULL, NULL}
 };
 
 PHP_MINFO_FUNCTION(aoiyu) {
@@ -19,16 +19,16 @@ PHP_MINFO_FUNCTION(aoiyu) {
 }
 
 zend_module_entry aoiyu_module_entry = {
-	STANDARD_MODULE_HEADER,
-	"aoiyu",
-	aoiyu_functions,
- 	NULL,
- 	NULL,
- 	NULL,
- 	NULL,
- 	PHP_MINFO(aoiyu),
- 	"1.1",
-	STANDARD_MODULE_PROPERTIES,
+    STANDARD_MODULE_HEADER,
+    "aoiyu",
+    aoiyu_functions,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     PHP_MINFO(aoiyu),
+     "1.1",
+    STANDARD_MODULE_PROPERTIES,
 };
 
 #define NUM_ROW 125
@@ -173,15 +173,14 @@ PHP_FUNCTION(aoiyu_awesome)
 {
     zval **str;
     char *s;
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "Z", &str) == FAILURE) {
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "Z", &str) == FAILURE) {
         RETURN_FALSE;
     }
-	if (Z_TYPE_PP(str) != IS_ARRAY) {
-		if (Z_ISREF_PP(str)) {
-			SEPARATE_ZVAL(str);
-		}
-		convert_to_string_ex(str);
-	}
+    if (Z_TYPE_PP(str) == IS_STRING) {
+    	convert_to_string_ex(str);
+    } else {
+        RETURN_FALSE;
+    }
     s = Z_STRVAL_PP(str);
     aoiyu_join(s);
     RETURN_TRUE;
