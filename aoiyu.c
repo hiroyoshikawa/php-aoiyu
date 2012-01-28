@@ -171,17 +171,11 @@ static char *aoiyu_join(const char *delimiter)
 
 PHP_FUNCTION(aoiyu_awesome)
 {
-    zval **str;
     char *s;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "Z", &str) == FAILURE) {
+    int s_len;
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &s, &s_len) == FAILURE) {
         RETURN_FALSE;
     }
-    if (Z_TYPE_PP(str) == IS_STRING) {
-    	convert_to_string_ex(str);
-    } else {
-        RETURN_FALSE;
-    }
-    s = Z_STRVAL_PP(str);
     aoiyu_join(s);
     RETURN_TRUE;
 }
